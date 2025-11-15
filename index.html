@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Busca Preço - Os melhores preços Brasil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero__content">
+            <p class="eyebrow">Comparador inteligente</p>
+            <h1>Descubra os melhores preços em tempo real</h1>
+            <p class="subtitle">Selecionamos ofertas confiáveis no Mercado Livre e Amazon com links de afiliado para você comprar com segurança.</p>
+            <div class="hero__actions">
+                <button class="primary" data-scroll="#categorias">Ver ofertas</button>
+                <button class="ghost" data-scroll="#curadoria">Como escolhemos</button>
+            </div>
+        </div>
+        <div class="hero__badge">
+            <span>Atualizado hoje</span>
+            <strong>Novas promoções verificadas</strong>
+        </div>
+    </header>
+
+    <section class="tabs" id="categorias">
+        <button class="tab-button active" data-category="tvs">TVs 4K e QLED</button>
+        <button class="tab-button" data-category="som">Aparelhos de Som</button>
+        <button class="tab-button" data-category="celulares">Celulares 5G</button>
+    </section>
+
+    <main id="category-content" class="category-content" aria-live="polite"></main>
+
+    <section class="curadoria" id="curadoria">
+        <div>
+            <h2>Curadoria transparente</h2>
+            <p>Monitoramos produtos com boa reputação, estoque confirmado e envio rápido. Ao comprar pelos links listados, você apoia este projeto sem pagar nada a mais.</p>
+        </div>
+        <ul>
+            <li>✓ Fabricantes confiáveis no Brasil</li>
+            <li>✓ Modelos com garantia e assistência</li>
+            <li>✓ Links de afiliado seguros</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© <span id="year"></span> Busca Preço. Alguns links são afiliados e podem gerar comissão.</p>
+    </footer>
+
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
