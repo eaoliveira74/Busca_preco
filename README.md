@@ -46,3 +46,11 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 	- Job **test**: depende de lint, repete `npm ci` e executa `npm test` (smoke test com Supertest/Node Test Runner).
 	- Job **deploy**: só dispara o hook do Render se lint + test passarem.
 3. Para testes extras (ex.: e2e), crie novos arquivos dentro de `tests/` e eles rodarão automaticamente via `npm test`.
+
+## Credenciais fornecidas (ambiente atual)
+- **Redirect URI autorizado**: `https://eaoliveira74.github.io/Busca_preco/`
+- **ID de afiliado**: `5925715452482228`
+- **Access token**: `VdCIXFXgxywrjRqtWrt4v6WMoUaoYAIF` (defina em `ML_ACCESS_TOKEN` ou use o fallback de `server.js`)
+- **CODE Mercado Livre**: `TG-691b330240bf2f00016ffcca-72587089`
+
+> Garanta que o `.env`, os *Secrets* do GitHub (`ML_ACCESS_TOKEN`, `RENDER_DEPLOY_HOOK_URL`) e as variáveis de ambiente do Render estejam sempre sincronizados com esses valores para evitar erros de autenticação ao consultar a API oficial.
