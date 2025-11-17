@@ -40,6 +40,7 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 ## Pipeline CI/CD (GitHub Actions + Render)
 1. Em **Settings → Secrets and variables → Actions**, adicione:
 	- `ML_ACCESS_TOKEN`: mesmo token usado no `.env`, exposto ao job de lint para garantir que o código sempre tenha a variável disponível.
+	- `ML_REFRESH_TOKEN`, `ML_CLIENT_ID`, `ML_CLIENT_SECRET`, `ML_REDIRECT_URI`: usados para a renovação automática do token durante o deploy/teste.
 	- `RENDER_DEPLOY_HOOK_URL`: URL do deploy hook do serviço Render (crie em *Deploy Hooks* dentro do dashboard do Render).
 2. O workflow `CI & Render Deploy` roda em todo push para `main` (ou manualmente via `workflow_dispatch`):
 	- Job **lint**: checkout, `npm ci`, `npm run lint`.
@@ -55,3 +56,9 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 - **CODE Mercado Livre**: `TG-691b330240bf2f00016ffcca-72587089`
 
 > Garanta que o `.env`, os *Secrets* do GitHub (`ML_ACCESS_TOKEN`, `RENDER_DEPLOY_HOOK_URL`) e as variáveis de ambiente do Render estejam sempre sincronizados com esses valores para evitar erros de autenticação ao consultar a API oficial.
+
+## Renovação automática do token
+- O `server.js` mantém o token atual em memória e, ao receber `401/403` do Mercado Livre, dispara uma chamada de refresh usando `ML_REFRESH_TOKEN`, `ML_CLIENT_ID`, `ML_CLIENT_SECRET` e `ML_REDIRECT_URI`.
+- Se o refresh for bem-sucedido, o novo `access_token` passa a ser usado imediatamente e um log aparece no console (`Token do Mercado Livre renovado automaticamente`).
+- Informe as mesmas variáveis no `.env`, nos secrets do GitHub e no painel do Render para que o mecanismo funcione em qualquer ambiente. Caso alguma delas esteja ausente, o servidor volta a exigir `ML_ACCESS_TOKEN` manual.
+- Para renovar manualmente via CLI, utilize o `refresh_token` listado acima com `grant_type=refresh_token` conforme a [documentação oficial](https://developers.mercadolibre.com.br/pt_br/autenticacao-e-autorizacao).
