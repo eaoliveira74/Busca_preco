@@ -50,7 +50,8 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 ## Credenciais fornecidas (ambiente atual)
 - **Redirect URI autorizado**: `https://eaoliveira74.github.io/Busca_preco/`
 - **ID de afiliado**: `5925715452482228`
-- **Access token**: `VdCIXFXgxywrjRqtWrt4v6WMoUaoYAIF` (defina em `ML_ACCESS_TOKEN` ou use o fallback de `server.js`)
+- **Access token**: `APP_USR-5925715452482228-111713-df17622d9557fdece9b79805626e7ef2-72587089` (defina em `ML_ACCESS_TOKEN` ou use o fallback de `server.js`)
+- **Refresh token**: `TG-691b62139f33220001e720c2-72587089` (guarde para renovar o access token sem reautorizar)
 - **CODE Mercado Livre**: `TG-691b330240bf2f00016ffcca-72587089`
 
 > Garanta que o `.env`, os *Secrets* do GitHub (`ML_ACCESS_TOKEN`, `RENDER_DEPLOY_HOOK_URL`) e as variáveis de ambiente do Render estejam sempre sincronizados com esses valores para evitar erros de autenticação ao consultar a API oficial.

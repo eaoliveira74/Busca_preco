@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4173;
 const ML_API = 'https://api.mercadolibre.com/sites/MLB/search';
 const DEFAULT_LIMIT = 36;
-const DEFAULT_ACCESS_TOKEN = 'VdCIXFXgxywrjRqtWrt4v6WMoUaoYAIF';
+const DEFAULT_ACCESS_TOKEN = 'APP_USR-5925715452482228-111713-df17622d9557fdece9b79805626e7ef2-72587089';
 const runningOnRender = Boolean(process.env.RENDER || process.env.RENDER_SERVICE_ID);
 
 app.use(cors());
