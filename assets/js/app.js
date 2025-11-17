@@ -1,5 +1,5 @@
 const API_PROXY = '/api/search';
-const DEFAULT_AFFILIATE_CODE = 'SEU_CODIGO';
+const DEFAULT_AFFILIATE_CODE = '5925715452482228';
 const CATEGORY_SETTINGS = {
     tvs: { label: 'TVs 4K e QLED', term: 'tv 4k 65 polegadas', note: 'Prioridade para painéis 4K, 120 Hz e Mini LED' },
     som: { label: 'Aparelhos de Som', term: 'soundbar dolby atmos bluetooth', note: 'Soundbars e caixas com Bluetooth e graves reforçados' },
@@ -8,9 +8,6 @@ const CATEGORY_SETTINGS = {
 
 const categoryContent = document.getElementById('category-content');
 const tabButtons = document.querySelectorAll('.tab-button');
-const affiliateInput = document.getElementById('affiliate-code');
-const affiliateApplyButton = document.getElementById('affiliate-apply');
-const affiliateFeedback = document.getElementById('affiliate-feedback');
 
 const cache = new Map();
 const state = {
@@ -19,65 +16,10 @@ const state = {
 };
 let lastRequestId = 0;
 
-initializeAffiliateCode();
 bindTabEvents();
 bindScrollTriggers();
-bindAffiliateControls();
 setCurrentYear();
 renderCategory('tvs');
-
-function initializeAffiliateCode() {
-    try {
-        const storedCode = window.localStorage.getItem('ml_affiliate_code');
-        if (storedCode) {
-            state.affiliateCode = storedCode;
-        }
-    } catch (error) {
-        // LocalStorage indisponível; mantém valor padrão.
-    }
-    if (affiliateInput) {
-        affiliateInput.value = state.affiliateCode;
-    }
-}
-
-function bindAffiliateControls() {
-    if (!affiliateInput || !affiliateApplyButton) {
-        return;
-    }
-    affiliateApplyButton.addEventListener('click', () => applyAffiliateCode());
-    affiliateInput.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            applyAffiliateCode();
-        }
-    });
-}
-
-function applyAffiliateCode() {
-    const newCode = (affiliateInput.value || '').trim() || DEFAULT_AFFILIATE_CODE;
-    state.affiliateCode = newCode;
-    try {
-        window.localStorage.setItem('ml_affiliate_code', newCode);
-    } catch (error) {
-        // Ignora se não for possível salvar.
-    }
-    flashAffiliateFeedback('Código aplicado nos links!');
-    if (cache.has(state.currentCategory)) {
-        renderFromResults(cache.get(state.currentCategory));
-    }
-}
-
-function flashAffiliateFeedback(message) {
-    if (!affiliateFeedback) {
-        return;
-    }
-    affiliateFeedback.textContent = message;
-    setTimeout(() => {
-        if (affiliateFeedback.textContent === message) {
-            affiliateFeedback.textContent = '';
-        }
-    }, 2200);
-}
 
 function bindTabEvents() {
     tabButtons.forEach(button => {
@@ -155,7 +97,7 @@ async function getCategoryResults(slug) {
 async function safeJson(response) {
     try {
         return await response.json();
-    } catch (error) {
+    } catch {
         return null;
     }
 }

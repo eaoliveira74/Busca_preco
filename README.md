@@ -5,7 +5,7 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 ## Recursos
 - Integração direta com `https://api.mercadolibre.com/sites/MLB/search?q=TERMO` com cache em memória para cada aba.
 - Resultados organizados por fabricante/modelo, destacando preço, parcelamento, vendedor e tags de frete grátis/Full.
-- Painel para definir seu código de afiliado Mercado Livre (salvo em `localStorage`).
+- Links de afiliado usam automaticamente o ID `5925715452482228` (travado no front-end).
 - Estados de carregamento/erro amigáveis e botão de retry.
 - Layout responsivo em HTML + CSS puro, pronto para abrir localmente.
 
@@ -15,22 +15,34 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 
 ## Como executar
 1. Copie `.env.example` para `.env` e informe `ML_ACCESS_TOKEN=APP_USR-...`.
-2. Instale dependências e suba o servidor/proxy que serve o site e assina as requisições:
+2. Instale dependências, rode o lint localmente e suba o servidor/proxy que serve o site e assina as requisições:
 	```pwsh
 	cd d:\Buca_Preco\Busca_preco
 	npm install
+	npm run lint
 	npm start
 	```
 	O servidor ficará disponível em `http://localhost:4173` (ajuste `PORT` no `.env` se necessário).
-3. Abra o endereço no navegador, informe o seu código de afiliado no painel e clique em "Aplicar".
+3. Abra o endereço no navegador; todos os links já incluem o ID de afiliado fixo `5925715452482228`.
 4. Cada aba dispara `GET /api/search?term=...` no servidor local, que adiciona o header `Authorization: Bearer ML_ACCESS_TOKEN` antes de chamar `https://api.mercadolibre.com/sites/MLB/search?q=termo`.
 
 > **Dica:** quer personalizar os termos de busca? Ajuste `CATEGORY_SETTINGS` em `assets/js/app.js`. Para filtros adicionais, adapte o endpoint `/api/search` em `server.js`.
 
 ## Estrutura
-- `index.html`: marcação principal, hero section, painel de afiliado e containers das abas/resultados.
+- `index.html`: marcação principal, hero section e containers das abas/resultados.
 - `assets/css/styles.css`: tema dark, componentes responsivos e estados de carregamento.
-- `assets/js/app.js`: chamadas à API do Mercado Livre, agrupamento por fabricante, geração dos links de afiliado e interações (abas/painel).
+- `assets/js/app.js`: chamadas à API do Mercado Livre, agrupamento por fabricante e geração dos links de afiliado com ID fixo.
 - `server.js`: servidor Express que serve os arquivos estáticos e atua como proxy autenticado da API oficial.
 - `.env.example`: modelo das variáveis necessárias (token e porta).
-- `package.json`: dependências do servidor e scripts `npm start`/`npm run dev`.
+- `package.json`: dependências do servidor e scripts `npm start`/`npm run dev`/`npm run lint`.
+- `.github/workflows/deploy.yml`: pipeline que roda lint e dispara deploy no Render.
+
+## Pipeline CI/CD (GitHub Actions + Render)
+1. Em **Settings → Secrets and variables → Actions**, adicione:
+	- `ML_ACCESS_TOKEN`: mesmo token usado no `.env`, exposto ao job de lint para garantir que o código sempre tenha a variável disponível.
+	- `RENDER_DEPLOY_HOOK_URL`: URL do deploy hook do serviço Render (crie em *Deploy Hooks* dentro do dashboard do Render).
+2. O workflow `CI & Render Deploy` roda em todo push para `main` (ou manualmente via `workflow_dispatch`):
+	- Job **lint**: checkout, `npm ci`, `npm run lint`.
+	- Job **test**: depende de lint, repete `npm ci` e executa `npm test` (smoke test com Supertest/Node Test Runner).
+	- Job **deploy**: só dispara o hook do Render se lint + test passarem.
+3. Para testes extras (ex.: e2e), crie novos arquivos dentro de `tests/` e eles rodarão automaticamente via `npm test`.

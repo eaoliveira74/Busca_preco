@@ -120,60 +120,6 @@ button.ghost:hover {
     box-shadow: 0 0 20px rgba(255,183,3,0.25);
 }
 
-.affiliate-panel {
-    max-width: 960px;
-    margin: 0 auto 2rem;
-    padding: 1.5rem 2rem;
-    border: 1px solid var(--border);
-    border-radius: 1.5rem;
-    background: rgba(15,17,26,0.9);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.affiliate-panel__label {
-    font-weight: 600;
-}
-
-.affiliate-panel__help {
-    color: var(--muted);
-    font-size: 0.9rem;
-}
-
-.affiliate-panel__controls {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.affiliate-panel input {
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--card-muted);
-    padding: 0.75rem 1.25rem;
-    color: var(--text);
-    min-width: 230px;
-}
-
-.affiliate-panel input:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-.ghost--compact {
-    padding: 0.6rem 1.25rem;
-}
-
-.affiliate-panel__feedback {
-    font-size: 0.85rem;
-    color: var(--primary);
-    min-height: 1em;
-}
-
 .category-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -375,9 +321,4 @@ footer {
         align-items: flex-start;
     }
 
-    .affiliate-panel {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1.25rem;
-    }
 }

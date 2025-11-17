@@ -59,6 +59,10 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor Busca Preço ouvindo em http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Servidor Busca Preço ouvindo em http://localhost:${PORT}`);
+    });
+}
+
+module.exports = { app };
