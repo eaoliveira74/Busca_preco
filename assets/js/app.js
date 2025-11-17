@@ -1,239 +1,345 @@
-const PRODUCTS = {
-    tvs: {
-        label: 'TVs 4K e QLED',
-        manufacturers: [
-            {
-                name: 'Samsung',
-                highlight: 'Neo QLED e Crystal UHD',
-                models: [
-                    {
-                        name: 'Neo QLED 65" QN90C',
-                        specs: 'Mini LED, 144 Hz, Dolby Atmos',
-                        price: 'R$ 7.499',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0C1ZNP9VH?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/samsung-qn90c-65?matt_tool=87156351' }
-                        ]
-                    },
-                    {
-                        name: 'Crystal UHD 55" CU8000',
-                        specs: 'Processador Crystal 4K, Alexa integrada',
-                        price: 'R$ 2.999',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0C2XG4Q1W?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/samsung-cu8000-55' }
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'LG',
-                highlight: 'OLED evo e NanoCell',
-                models: [
-                    {
-                        name: 'OLED C3 55"',
-                        specs: 'Pixel autoiluminado, HDMI 2.1',
-                        price: 'R$ 6.799',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0BZR252K7?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/lg-oled55c3' }
-                        ]
-                    },
-                    {
-                        name: 'NanoCell 65" NANO77',
-                        specs: 'Filmmaker Mode, WebOS 23',
-                        price: 'R$ 4.199',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0C6YHR3K3?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/lg-nano77-65' }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    som: {
-        label: 'Aparelhos de Som',
-        manufacturers: [
-            {
-                name: 'Sony',
-                highlight: 'Soundbars Dolby Atmos',
-                models: [
-                    {
-                        name: 'HT-A5000',
-                        specs: '5.1.2 canais, Wi-Fi e Bluetooth',
-                        price: 'R$ 4.599',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B09KQLZQGJ?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/soundbar-sony-ht-a5000' }
-                        ]
-                    },
-                    {
-                        name: 'HT-S400',
-                        specs: '2.1 canais, Subwoofer sem fio',
-                        price: 'R$ 1.899',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B09QK7S64L?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/soundbar-sony-ht-s400' }
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'JBL',
-                highlight: 'Caixas portáteis e festas',
-                models: [
-                    {
-                        name: 'PartyBox 110',
-                        specs: '160 W RMS, luzes RGB',
-                        price: 'R$ 2.299',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B09B1L1WFZ?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/jbl-partybox-110' }
-                        ]
-                    },
-                    {
-                        name: 'Flip 6',
-                        specs: 'À prova d\'água IP67, 12h de bateria',
-                        price: 'R$ 699',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B09TKSSB1B?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/jbl-flip-6' }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    celulares: {
-        label: 'Celulares 5G',
-        manufacturers: [
-            {
-                name: 'Apple',
-                highlight: 'Linha iPhone 15',
-                models: [
-                    {
-                        name: 'iPhone 15 Pro',
-                        specs: 'Chip A17 Pro, câmera 48 MP',
-                        price: 'R$ 8.499',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0CHX81VT8?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/iphone-15-pro' }
-                        ]
-                    },
-                    {
-                        name: 'iPhone 15',
-                        specs: 'Dynamic Island, câmera dupla',
-                        price: 'R$ 6.199',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0CHX8THCD?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/iphone-15' }
-                        ]
-                    }
-                ]
-            },
-            {
-                name: 'Samsung',
-                highlight: 'Linha Galaxy S e A',
-                models: [
-                    {
-                        name: 'Galaxy S23 Ultra',
-                        specs: '200 MP, S Pen, Snapdragon 8 Gen 2',
-                        price: 'R$ 6.599',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0BLP13YRF?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/galaxy-s23-ultra' }
-                        ]
-                    },
-                    {
-                        name: 'Galaxy A54 5G',
-                        specs: 'Tela AMOLED 120 Hz, 256 GB',
-                        price: 'R$ 2.299',
-                        offers: [
-                            { store: 'Amazon', url: 'https://www.amazon.com/dp/B0BXS4VW6S?tag=buscapreco-20' },
-                            { store: 'Mercado Livre', url: 'https://www.mercadolivre.com.br/galaxy-a54' }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+const API_PROXY = '/api/search';
+const DEFAULT_AFFILIATE_CODE = 'SEU_CODIGO';
+const CATEGORY_SETTINGS = {
+    tvs: { label: 'TVs 4K e QLED', term: 'tv 4k 65 polegadas', note: 'Prioridade para painéis 4K, 120 Hz e Mini LED' },
+    som: { label: 'Aparelhos de Som', term: 'soundbar dolby atmos bluetooth', note: 'Soundbars e caixas com Bluetooth e graves reforçados' },
+    celulares: { label: 'Celulares 5G', term: 'smartphone 5g 256gb', note: 'Modelos com 5G, câmeras premium e muita bateria' }
 };
 
 const categoryContent = document.getElementById('category-content');
 const tabButtons = document.querySelectorAll('.tab-button');
+const affiliateInput = document.getElementById('affiliate-code');
+const affiliateApplyButton = document.getElementById('affiliate-apply');
+const affiliateFeedback = document.getElementById('affiliate-feedback');
 
-function buildCard(model) {
-    const offers = model.offers.map(offer => `
-        <a href="${offer.url}" target="_blank" rel="noopener noreferrer">${offer.store}</a>
-    `).join('');
+const cache = new Map();
+const state = {
+    currentCategory: 'tvs',
+    affiliateCode: DEFAULT_AFFILIATE_CODE
+};
+let lastRequestId = 0;
 
+initializeAffiliateCode();
+bindTabEvents();
+bindScrollTriggers();
+bindAffiliateControls();
+setCurrentYear();
+renderCategory('tvs');
+
+function initializeAffiliateCode() {
+    try {
+        const storedCode = window.localStorage.getItem('ml_affiliate_code');
+        if (storedCode) {
+            state.affiliateCode = storedCode;
+        }
+    } catch (error) {
+        // LocalStorage indisponível; mantém valor padrão.
+    }
+    if (affiliateInput) {
+        affiliateInput.value = state.affiliateCode;
+    }
+}
+
+function bindAffiliateControls() {
+    if (!affiliateInput || !affiliateApplyButton) {
+        return;
+    }
+    affiliateApplyButton.addEventListener('click', () => applyAffiliateCode());
+    affiliateInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            applyAffiliateCode();
+        }
+    });
+}
+
+function applyAffiliateCode() {
+    const newCode = (affiliateInput.value || '').trim() || DEFAULT_AFFILIATE_CODE;
+    state.affiliateCode = newCode;
+    try {
+        window.localStorage.setItem('ml_affiliate_code', newCode);
+    } catch (error) {
+        // Ignora se não for possível salvar.
+    }
+    flashAffiliateFeedback('Código aplicado nos links!');
+    if (cache.has(state.currentCategory)) {
+        renderFromResults(cache.get(state.currentCategory));
+    }
+}
+
+function flashAffiliateFeedback(message) {
+    if (!affiliateFeedback) {
+        return;
+    }
+    affiliateFeedback.textContent = message;
+    setTimeout(() => {
+        if (affiliateFeedback.textContent === message) {
+            affiliateFeedback.textContent = '';
+        }
+    }, 2200);
+}
+
+function bindTabEvents() {
+    tabButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            const category = event.currentTarget.dataset.category;
+            if (category === state.currentCategory) {
+                return;
+            }
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderCategory(category);
+        });
+    });
+}
+
+function bindScrollTriggers() {
+    const scrollTriggers = document.querySelectorAll('[data-scroll]');
+    scrollTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const targetSelector = trigger.dataset.scroll;
+            const target = document.querySelector(targetSelector);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+function setCurrentYear() {
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+}
+
+async function renderCategory(slug) {
+    state.currentCategory = slug;
+    showLoadingState(slug);
+    const requestId = ++lastRequestId;
+    try {
+        const results = await getCategoryResults(slug);
+        if (requestId !== lastRequestId) {
+            return;
+        }
+        renderFromResults(results);
+    } catch (error) {
+        if (requestId !== lastRequestId) {
+            return;
+        }
+        showErrorState(error.message || 'Não foi possível carregar as ofertas agora.');
+    }
+}
+
+async function getCategoryResults(slug) {
+    if (cache.has(slug)) {
+        return cache.get(slug);
+    }
+    const { term } = CATEGORY_SETTINGS[slug] || { term: slug };
+    const query = `${API_PROXY}?term=${encodeURIComponent(term)}&limit=36`;
+    const response = await fetch(query);
+    if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+            throw new Error('API exigiu autenticação. Configure o servidor com seu access token do Mercado Livre.');
+        }
+        const errorPayload = await safeJson(response);
+        const message = errorPayload && errorPayload.error ? errorPayload.error : 'Erro ao consultar o proxy da API.';
+        throw new Error(message);
+    }
+    const payload = await response.json();
+    const results = Array.isArray(payload.results) ? payload.results : [];
+    cache.set(slug, results);
+    return results;
+}
+
+async function safeJson(response) {
+    try {
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}
+
+function renderFromResults(results) {
+    if (!results || results.length === 0) {
+        showEmptyState();
+        return;
+    }
+    const groups = buildGroups(results);
+    if (!groups.length) {
+        showEmptyState();
+        return;
+    }
+    const summary = CATEGORY_SETTINGS[state.currentCategory];
+    const summaryCard = summary ? getSummaryCard(summary) : '';
+    const sections = groups.map(buildManufacturerSection).join('');
+    categoryContent.innerHTML = summaryCard + sections;
+}
+
+function buildGroups(results) {
+    const grouped = new Map();
+    results.slice(0, 36).forEach(item => {
+        const brand = getBrand(item);
+        if (!grouped.has(brand)) {
+            grouped.set(brand, []);
+        }
+        const models = grouped.get(brand);
+        if (models.length < 4) {
+            models.push(item);
+        }
+    });
+    return Array.from(grouped.entries())
+        .sort((a, b) => b[1].length - a[1].length)
+        .slice(0, 5)
+        .map(([brand, models]) => ({
+            brand,
+            models,
+            highlight: `${models.length} ${models.length > 1 ? 'ofertas' : 'oferta'}`
+        }));
+}
+
+function buildManufacturerSection(group) {
+    const modelsHtml = group.models.map(buildCard).join('');
+    return `
+        <article class="manufacturer">
+            <div class="manufacturer__header">
+                <h3>${group.brand}</h3>
+                <small>${group.highlight}</small>
+            </div>
+            <div class="manufacturer__models">
+                ${modelsHtml}
+            </div>
+        </article>
+    `;
+}
+
+function buildCard(item) {
+    const model = getModel(item);
+    const price = formatPrice(item.price);
+    const installments = formatInstallments(item.installments);
+    const seller = item.seller && item.seller.nickname ? item.seller.nickname : 'Mercado Livre';
+    const condition = item.condition === 'new' ? 'Novo' : 'Usado';
+    const shippingTag = item.shipping && item.shipping.free_shipping ? '<span class="tag tag--success">Frete grátis</span>' : '';
+    const fulfillmentTag = item.logistic_type === 'fulfillment' ? '<span class="tag">Full</span>' : '';
     return `
         <div class="card">
             <div class="card__info">
-                <h4>${model.name}</h4>
-                <p>${model.specs}</p>
+                <h4>${sanitizeText(item.title)}</h4>
+                <p>${model ? `${sanitizeText(model)} • ` : ''}Vendido por ${sanitizeText(seller)}</p>
+                ${installments ? `<p>${installments}</p>` : ''}
+                <div class="card__meta">
+                    <span class="tag">${condition}</span>
+                    ${shippingTag}
+                    ${fulfillmentTag}
+                    <span class="tag tag--highlight">${sanitizeText(getBrand(item))}</span>
+                </div>
             </div>
             <div class="card__cta">
-                <span class="price-tag">A partir de ${model.price}</span>
+                <span class="price-tag">${price}</span>
                 <div class="offer-links">
-                    ${offers}
+                    <a href="${buildAffiliateLink(item.permalink)}" target="_blank" rel="noopener noreferrer">Ver oferta</a>
                 </div>
             </div>
         </div>
     `;
 }
 
-function buildManufacturer(manufacturer) {
-    const models = manufacturer.models.map(buildCard).join('');
-    return `
-        <article class="manufacturer">
-            <div class="manufacturer__header">
-                <h3>${manufacturer.name}</h3>
-                <small>${manufacturer.highlight}</small>
-            </div>
-            <div class="manufacturer__models">
-                ${models}
-            </div>
+function buildAffiliateLink(permalink) {
+    const encodedUrl = encodeURIComponent(permalink);
+    const code = encodeURIComponent(state.affiliateCode || DEFAULT_AFFILIATE_CODE);
+    return `https://mercadolivre.com/jm/ml.aff?a=${code}&go=${encodedUrl}`;
+}
+
+function getBrand(item) {
+    if (Array.isArray(item.attributes)) {
+        const brandAttribute = item.attributes.find(attr => attr.id === 'BRAND' && attr.value_name);
+        if (brandAttribute) {
+            return brandAttribute.value_name;
+        }
+    }
+    if (item.attributes) {
+        const manufacturer = item.attributes.find(attr => attr.name && attr.name.toLowerCase().includes('fabricante'));
+        if (manufacturer && manufacturer.value_name) {
+            return manufacturer.value_name;
+        }
+    }
+    if (item.title) {
+        return item.title.split(' ')[0];
+    }
+    return 'Outros';
+}
+
+function getModel(item) {
+    if (Array.isArray(item.attributes)) {
+        const modelAttribute = item.attributes.find(attr => attr.id === 'MODEL' && attr.value_name);
+        if (modelAttribute) {
+            return modelAttribute.value_name;
+        }
+    }
+    return '';
+}
+
+function formatPrice(value) {
+    if (typeof value !== 'number') {
+        return 'Preço indisponível';
+    }
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
+}
+
+function formatInstallments(installments) {
+    if (!installments || !installments.quantity || !installments.amount) {
+        return '';
+    }
+    const total = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 }).format(installments.amount);
+    return `${installments.quantity}x de ${total} sem juros`;
+}
+
+function sanitizeText(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+}
+
+function showLoadingState(slug) {
+    const summary = CATEGORY_SETTINGS[slug];
+    const note = summary ? summary.note : 'Buscando ofertas fresquinhas';
+    categoryContent.innerHTML = `
+        <article class="status-card">
+            <div class="spinner" aria-hidden="true"></div>
+            <h3>Sincronizando com o Mercado Livre…</h3>
+            <p>${note}</p>
         </article>
     `;
 }
 
-function renderCategory(slug) {
-    const data = PRODUCTS[slug];
-    if (!data) {
-        categoryContent.innerHTML = '<p>Nenhuma oferta encontrada.</p>';
-        return;
+function showErrorState(message) {
+    categoryContent.innerHTML = `
+        <article class="status-card">
+            <h3>Ops, algo deu errado</h3>
+            <p>${message}</p>
+            <button class="primary" type="button" id="retry-fetch">Tentar novamente</button>
+        </article>
+    `;
+    const retry = document.getElementById('retry-fetch');
+    if (retry) {
+        retry.addEventListener('click', () => renderCategory(state.currentCategory));
     }
-    const html = data.manufacturers.map(buildManufacturer).join('');
-    categoryContent.innerHTML = html;
 }
 
-function handleTabClick(event) {
-    tabButtons.forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    const category = event.currentTarget.dataset.category;
-    renderCategory(category);
+function showEmptyState() {
+    categoryContent.innerHTML = `
+        <article class="status-card">
+            <h3>Sem ofertas no momento</h3>
+            <p>Tente novamente em instantes ou altere a categoria.</p>
+        </article>
+    `;
 }
 
-tabButtons.forEach(button => {
-    button.addEventListener('click', handleTabClick);
-});
-
-const scrollTriggers = document.querySelectorAll('[data-scroll]');
-scrollTriggers.forEach(trigger => {
-    trigger.addEventListener('click', () => {
-        const targetSelector = trigger.dataset.scroll;
-        const target = document.querySelector(targetSelector);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-
-const yearEl = document.getElementById('year');
-if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
+function getSummaryCard(summary) {
+    return `
+        <article class="status-card">
+            <h3>${summary.label}</h3>
+            <p>${summary.note}</p>
+        </article>
+    `;
 }
-
-renderCategory('tvs');

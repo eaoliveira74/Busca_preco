@@ -120,6 +120,60 @@ button.ghost:hover {
     box-shadow: 0 0 20px rgba(255,183,3,0.25);
 }
 
+.affiliate-panel {
+    max-width: 960px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    background: rgba(15,17,26,0.9);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.affiliate-panel__label {
+    font-weight: 600;
+}
+
+.affiliate-panel__help {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.affiliate-panel__controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.affiliate-panel input {
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card-muted);
+    padding: 0.75rem 1.25rem;
+    color: var(--text);
+    min-width: 230px;
+}
+
+.affiliate-panel input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.ghost--compact {
+    padding: 0.6rem 1.25rem;
+}
+
+.affiliate-panel__feedback {
+    font-size: 0.85rem;
+    color: var(--primary);
+    min-height: 1em;
+}
+
 .category-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -170,6 +224,33 @@ button.ghost:hover {
     font-size: 0.95rem;
 }
 
+.card__meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+}
+
+.tag--highlight {
+    border-color: rgba(33,158,188,0.6);
+    color: var(--secondary);
+}
+
+.tag--success {
+    border-color: rgba(0,200,83,0.4);
+    color: #7ef49b;
+}
+
 .card__cta {
     display: flex;
     flex-direction: column;
@@ -204,6 +285,50 @@ button.ghost:hover {
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
     font-size: 0.85rem;
+}
+
+.status-card {
+    border: 1px dashed var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255,255,255,0.02);
+}
+
+.status-card p {
+    color: var(--muted);
+    margin-top: 0.5rem;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+.skeleton-line {
+    height: 0.85rem;
+    background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease infinite;
+    border-radius: 999px;
+}
+
+.skeleton-line + .skeleton-line {
+    margin-top: 0.65rem;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 .curadoria {
@@ -248,5 +373,11 @@ footer {
 
     .card__cta {
         align-items: flex-start;
+    }
+
+    .affiliate-panel {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
     }
 }
