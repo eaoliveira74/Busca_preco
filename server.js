@@ -8,6 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 4173;
 const ML_API = 'https://api.mercadolibre.com/sites/MLB/search';
 const DEFAULT_LIMIT = 36;
+const DEFAULT_ACCESS_TOKEN = 'HGCVUAs4ufS0HotAvrKEpLfnH5o3HLxs';
+const runningOnRender = Boolean(process.env.RENDER || process.env.RENDER_SERVICE_ID);
 
 app.use(cors());
 app.use(express.static(__dirname));
@@ -19,7 +21,7 @@ app.get('/api/search', async (req, res) => {
         return res.status(400).json({ error: 'Parâmetro "term" é obrigatório.' });
     }
 
-    const accessToken = process.env.ML_ACCESS_TOKEN;
+    const accessToken = process.env.ML_ACCESS_TOKEN || (runningOnRender ? DEFAULT_ACCESS_TOKEN : '');
     if (!accessToken) {
         return res.status(500).json({
             error: 'Configure a variável ML_ACCESS_TOKEN no arquivo .env para consultar o Mercado Livre.'
