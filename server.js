@@ -8,11 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 4173;
 const ML_API = 'https://api.mercadolibre.com/sites/MLB/search';
 const DEFAULT_LIMIT = 36;
-const DEFAULT_ACCESS_TOKEN = 'APP_USR-5925715452482228-111713-df17622d9557fdece9b79805626e7ef2-72587089';
-const DEFAULT_REFRESH_TOKEN = 'TG-691b62139f33220001e720c2-72587089';
+const DEFAULT_ACCESS_TOKEN = 'APP_USR-5925715452482228-111716-d4b7e8ea4573e7a5a6d9283fb9465ea2-72587089';
+const DEFAULT_REFRESH_TOKEN = 'TG-691b8a62ad11be0001101ecb-72587089';
 const DEFAULT_CLIENT_ID = '5925715452482228';
 const DEFAULT_CLIENT_SECRET = 'VdCIXFXgxywrjRqtWrt4v6WMoUaoYAIF';
-const DEFAULT_REDIRECT_URI = 'https://busca-preco.onrender.com/';
+const DEFAULT_REDIRECT_URI = 'https://busca-preco-1.onrender.com/';
 const runningOnRender = Boolean(process.env.RENDER || process.env.RENDER_SERVICE_ID);
 let accessToken = process.env.ML_ACCESS_TOKEN || (runningOnRender ? DEFAULT_ACCESS_TOKEN : '');
 const refreshConfig = {
@@ -50,20 +50,23 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
-async function fetchFromMercadoLivre(term, limit, allowRetry = true) {
+async function fetchFromMercadoLivre(term, limit, options = {}) {
+    const { useAuth = Boolean(accessToken), allowRetry = true } = options;
     const url = `${ML_API}?q=${encodeURIComponent(term)}&limit=${limit}`;
-    const response = await fetch(url, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        }
-    });
+    const headers = { 'Content-Type': 'application/json' };
+    if (useAuth && accessToken) {
+        headers.Authorization = `Bearer ${accessToken}`;
+    }
 
-    if (response.status === 401 || response.status === 403) {
+    const response = await fetch(url, { headers });
+
+    if (useAuth && (response.status === 401 || response.status === 403)) {
         const refreshed = allowRetry ? await refreshAccessToken() : false;
         if (refreshed) {
-            return fetchFromMercadoLivre(term, limit, false);
+            return fetchFromMercadoLivre(term, limit, { useAuth: true, allowRetry: false });
         }
+        console.warn('[Busca Preço] Mercado Livre recusou o token ativo. Tentando sem Authorization.');
+        return fetchFromMercadoLivre(term, limit, { useAuth: false, allowRetry: false });
     }
 
     if (!response.ok) {

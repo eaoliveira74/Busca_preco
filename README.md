@@ -6,6 +6,7 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 - Integração direta com `https://api.mercadolibre.com/sites/MLB/search?q=TERMO` com cache em memória para cada aba.
 - Resultados organizados por fabricante/modelo, destacando preço, parcelamento, vendedor e tags de frete grátis/Full.
 - Links de afiliado usam automaticamente o ID `5925715452482228` (travado no front-end).
+- Proxy renova o token automaticamente e, se a API ainda recusar o header, refaz a chamada sem autenticação para manter o site online.
 - Estados de carregamento/erro amigáveis e botão de retry.
 - Layout responsivo em HTML + CSS puro, pronto para abrir localmente.
 
@@ -49,16 +50,17 @@ Landing page dinâmica que consome a API oficial do Mercado Livre para listar TV
 3. Para testes extras (ex.: e2e), crie novos arquivos dentro de `tests/` e eles rodarão automaticamente via `npm test`.
 
 ## Credenciais fornecidas (ambiente atual)
-- **Redirect URI autorizado**: `https://eaoliveira74.github.io/Busca_preco/`
+- **Redirect URI autorizado**: `https://busca-preco-1.onrender.com/`
 - **ID de afiliado**: `5925715452482228`
-- **Access token**: `APP_USR-5925715452482228-111713-df17622d9557fdece9b79805626e7ef2-72587089` (defina em `ML_ACCESS_TOKEN` ou use o fallback de `server.js`)
-- **Refresh token**: `TG-691b62139f33220001e720c2-72587089` (guarde para renovar o access token sem reautorizar)
-- **CODE Mercado Livre**: `TG-691b330240bf2f00016ffcca-72587089`
+- **Access token**: `APP_USR-5925715452482228-111716-d4b7e8ea4573e7a5a6d9283fb9465ea2-72587089` (defina em `ML_ACCESS_TOKEN` ou use o fallback de `server.js`)
+- **Refresh token**: `TG-691b8a62ad11be0001101ecb-72587089` (guarde para renovar o access token sem reautorizar)
+- **CODE Mercado Livre**: `TG-691b84e8f393770001ed4455-72587089`
 
 > Garanta que o `.env`, os *Secrets* do GitHub (`ML_ACCESS_TOKEN`, `RENDER_DEPLOY_HOOK_URL`) e as variáveis de ambiente do Render estejam sempre sincronizados com esses valores para evitar erros de autenticação ao consultar a API oficial.
 
 ## Renovação automática do token
 - O `server.js` mantém o token atual em memória e, ao receber `401/403` do Mercado Livre, dispara uma chamada de refresh usando `ML_REFRESH_TOKEN`, `ML_CLIENT_ID`, `ML_CLIENT_SECRET` e `ML_REDIRECT_URI`.
 - Se o refresh for bem-sucedido, o novo `access_token` passa a ser usado imediatamente e um log aparece no console (`Token do Mercado Livre renovado automaticamente`).
+- Se ainda assim a resposta continuar em `401/403`, o proxy loga `[Busca Preço] Mercado Livre recusou o token ativo...` e repete a requisição sem o header `Authorization`, evitando indisponibilidade temporária.
 - Informe as mesmas variáveis no `.env`, nos secrets do GitHub e no painel do Render para que o mecanismo funcione em qualquer ambiente. Caso alguma delas esteja ausente, o servidor volta a exigir `ML_ACCESS_TOKEN` manual.
 - Para renovar manualmente via CLI, utilize o `refresh_token` listado acima com `grant_type=refresh_token` conforme a [documentação oficial](https://developers.mercadolibre.com.br/pt_br/autenticacao-e-autorizacao).
